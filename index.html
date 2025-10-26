@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Personality Quiz</title>
-    
+    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
- 
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -71,104 +71,17 @@
             </div>
         </div>
 
+        <!-- Submit Button -->
         <button id="submit-btn" class="btn btn-primary">Give Me the Results!</button>
 
- 
+        <!-- Result Container -->
         <div id="result-container">
             <h2>Your Personality Type:</h2>
-            <p id="result-text"></p>
+            <p id="result-text">Your results are inconclusive. Please try the quiz again!</p>
         </div>
     </div>
 
-    <script>
-        
-        let userAnswers = {};
-
-       
-        document.addEventListener('DOMContentLoaded', function() {
-            
-            const questionBlocks = document.querySelectorAll('.question-block');
-            
-          
-            questionBlocks.forEach(function(block) {
-              
-                const answerButtons = block.querySelectorAll('.answer-btn');
-                
-           
-                answerButtons.forEach(function(button) {
-                
-                    button.addEventListener('click', function() {
-                       
-                        const questionNum = this.getAttribute('data-question');
-                        const answerValue = this.getAttribute('data-answer');
-                        
-                       
-                        answerButtons.forEach(function(btn) {
-                            btn.classList.remove('selected');
-                        });
-                        
-                      
-                        this.classList.add('selected');
-                        
-                        
-                        userAnswers[questionNum] = answerValue;
-                        
-                        console.log('Question ' + questionNum + ' answered: ' + answerValue);
-                    });
-                });
-            });
-            
-          
-            document.getElementById('submit-btn').addEventListener('click', displayResult);
-        });
-
-        function displayResult() {
-          
-            const totalQuestions = document.querySelectorAll('.question-block').length;
-            if (Object.keys(userAnswers).length < totalQuestions) {
-                alert('Please answer all questions before submitting!');
-                return;
-            }
-            
-            const pointValues = {
-                '1': {'A': 13, 'B': 14, 'C': 11, 'D': 12},
-                '2': {'A': 13, 'B': 14, 'C': 11, 'D': 12},
-                '3': {'A': 13, 'B': 14, 'C': 11, 'D': 12},
-                '4': {'A': 13, 'B': 14, 'C': 11, 'D': 12},
-                '5': {'A': 13, 'B': 14, 'C': 11, 'D': 12}
-            };
-            
-           
-            let totalPoints = 0;
-            for (let question in userAnswers) {
-                const answer = userAnswers[question];
-                totalPoints += pointValues[question][answer];
-            }
-            
-            // Determine result based on total points
-            let result;
-            if (totalPoints >= 13 && totalPoints <= 16) {
-                result = "Thinker: You're analytical, logical, and enjoy deep thinking. You prefer to understand how things work and value knowledge above all else.";
-            } else if (totalPoints >= 10 && totalPoints <= 12) {
-                result = "Leader: You're confident, organized, and natural at taking charge. People look to you for direction and you excel at coordinating group efforts.";
-            } else if (totalPoints >= 7 && totalPoints <= 9) {
-                result = "Artist: You're creative, expressive, and appreciate beauty in all forms. You think outside the box and bring unique perspectives to any situation.";
-            } else if (totalPoints >= 4 && totalPoints <= 6) {
-                result = "Explorer: You're adventurous, spontaneous, and always seeking new experiences. You thrive on change and discovery, and you're not afraid to take risks.";
-            } else {
-                result = "Your results are inconclusive. Please try the quiz again!";
-            }
-            
-            document.getElementById('result-text').textContent = result;
-            document.getElementById('result-container').style.display = 'block';
-            
-            t
-            document.getElementById('result-container').scrollIntoView({ behavior: 'smooth' });
-            
-           
-            console.log('Total points: ' + totalPoints);
-            console.log('Result: ' + result);
-        }
-    </script>
+    <!-- Custom JavaScript -->
+    <script src="script.js"></script>
 </body>
 </html>
