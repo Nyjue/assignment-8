@@ -1,7 +1,6 @@
 // This will store the user's answers
 let userAnswers = {};
 
-// Wait for the page to load
 document.addEventListener('DOMContentLoaded', function() {
     console.log('Page loaded - JavaScript is working!');
     
@@ -9,48 +8,46 @@ document.addEventListener('DOMContentLoaded', function() {
     const questionBlocks = document.querySelectorAll('.question-block');
     console.log('Found ' + questionBlocks.length + ' question blocks');
     
-    // For each question block
+    
     questionBlocks.forEach(function(block) {
-        // Select all answer buttons in this block
+        
         const answerButtons = block.querySelectorAll('.answer-btn');
         
         // For each answer button
         answerButtons.forEach(function(button) {
-            // Add click event listener
+            
             button.addEventListener('click', function() {
                 // Get the question number and answer value
                 const questionNum = this.getAttribute('data-question');
                 const answerValue = this.getAttribute('data-answer');
                 
-                // Remove 'selected' class from all buttons in this question
+                
                 answerButtons.forEach(function(btn) {
                     btn.classList.remove('selected');
                 });
                 
-                // Add 'selected' class to clicked button
+                
                 this.classList.add('selected');
                 
-                // Store the user's answer
+                
                 userAnswers[questionNum] = answerValue;
                 
-                // Log for debugging
                 console.log('Question ' + questionNum + ' answered: ' + answerValue);
                 console.log('Current answers:', userAnswers);
             });
         });
     });
     
-    // Add event listener to the submit button
+   
     const submitBtn = document.getElementById('submit-btn');
     submitBtn.addEventListener('click', displayResult);
     console.log('Submit button event listener added');
 });
 
-// Function to calculate and display the result
+
 function displayResult() {
     console.log('Submit button clicked!');
     
-    // Check if all questions are answered
     const totalQuestions = document.querySelectorAll('.question-block').length;
     const answeredQuestions = Object.keys(userAnswers).length;
     
@@ -63,7 +60,6 @@ function displayResult() {
         return;
     }
     
-    // Define point values for each answer
     const pointValues = {
         '1': {'A': 1, 'B': 2, 'C': 3, 'D': 4},
         '2': {'A': 1, 'B': 2, 'C': 3, 'D': 4},
@@ -72,7 +68,7 @@ function displayResult() {
         '5': {'A': 1, 'B': 2, 'C': 3, 'D': 4}
     };
     
-    // Calculate total points
+    
     let totalPoints = 0;
     for (let question in userAnswers) {
         const answer = userAnswers[question];
@@ -81,8 +77,7 @@ function displayResult() {
     
     console.log('Total points calculated:', totalPoints);
     
-    // Determine result based on total points
-    let result;
+    
     if (totalPoints >= 5 && totalPoints <= 8) {
         result = "Explorer: You're adventurous, spontaneous, and always seeking new experiences. You thrive on change and discovery, and you're not afraid to take risks.";
     } else if (totalPoints >= 9 && totalPoints <= 12) {
@@ -94,15 +89,12 @@ function displayResult() {
     } else {
         result = "Your results are inconclusive. Please try the quiz again!";
     }
-    
-    // Display the result
+
     document.getElementById('result-text').textContent = result;
     document.getElementById('result-container').style.display = 'block';
-    
-    // Scroll to the result
+   
     document.getElementById('result-container').scrollIntoView({ behavior: 'smooth' });
-    
-    // Log for debugging
+ 
     console.log('Final result:', result);
     console.log('Result container should now be visible');
 }
